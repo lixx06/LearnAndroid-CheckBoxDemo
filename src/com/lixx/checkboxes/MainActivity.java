@@ -22,7 +22,7 @@ public class MainActivity extends Activity {
         
         //add listener to CheckBox
         textView = (TextView)findViewById(R.id.textView);
-        textView.setBackgroundColor(Color.RED);        
+        textView.setBackgroundColor(Color.BLUE);        
         eatBox = (CheckBox)findViewById(R.id.eatBox);
         eatBox.setOnClickListener(new ClickListener());
         sleepBox = (CheckBox)findViewById(R.id.sleepBox);
