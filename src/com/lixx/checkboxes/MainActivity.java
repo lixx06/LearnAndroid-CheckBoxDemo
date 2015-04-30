@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
@@ -24,15 +26,55 @@ public class MainActivity extends Activity {
         textView = (TextView)findViewById(R.id.textView);
         textView.setBackgroundColor(Color.BLUE);        
         eatBox = (CheckBox)findViewById(R.id.eatBox);
-        eatBox.setOnClickListener(new ClickListener());
+        eatBox.setOnCheckedChangeListener(new ClickListener());
         sleepBox = (CheckBox)findViewById(R.id.sleepBox);
-        sleepBox.setOnClickListener(new ClickListener());
+        sleepBox.setOnCheckedChangeListener(new ClickListener());
         dotaBox = (CheckBox)findViewById(R.id.dotaBox);
-        dotaBox.setOnClickListener(new ClickListener());
+        dotaBox.setOnCheckedChangeListener(new ClickListener());
         selectAllBox = (CheckBox)findViewById(R.id.selectAllBox);
-        selectAllBox.setOnClickListener(new ClickListener());        
+        selectAllBox.setOnCheckedChangeListener(new ClickListener());        
     }
     
+    private class ClickListener implements OnCheckedChangeListener{
+
+		@Override
+		public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+			// TODO Auto-generated method stub
+			String tmpString = new String();
+			if (arg0.getId() == R.id.eatBox){
+				checkStatus += (arg1 ? 4 : -4);
+				tmpString = ". EatBox " + (arg1 ? "Clicked" : "UnClicked");
+			}
+			else if(arg0.getId() == R.id.sleepBox){
+				checkStatus += (arg1 ? 2 : -2);
+				tmpString = ". SleepBox " + (arg1 ? "Clicked" : "UnClicked");
+			}
+			else if(arg0.getId() == R.id.dotaBox){
+				checkStatus += (arg1 ? 1 : -1);
+				tmpString = ". DotaBox " + (arg1 ? "Clicked" : "UnClicked");
+			}
+			else if(arg0.getId() == R.id.selectAllBox){				
+				if(arg1){
+					eatBox.setChecked(true);
+					sleepBox.setChecked(true);
+					dotaBox.setChecked(true);
+				}
+				else{
+					eatBox.setChecked(false);
+					sleepBox.setChecked(false);
+					dotaBox.setChecked(false);
+				}
+				checkStatus = (arg1 ? 7 : 0);
+				tmpString = ". SelectAllBox " + (arg1 ? "Clicked" : "UnClicked");
+			}
+			
+			textView.setText("Status:" + checkStatus + tmpString);
+			
+		}
+    	
+    }
+    
+    /*
     private class ClickListener implements OnClickListener{
 
 		@Override
@@ -93,7 +135,7 @@ public class MainActivity extends Activity {
 		}
     	
     }
-
+*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
